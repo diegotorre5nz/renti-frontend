@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
-
+import type { User } from '@/app/lib/definitions';
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
@@ -126,6 +126,48 @@ export async function authenticate(
 ) {
   try {
     await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials';
+        default:
+          return 'Something went wrong';
+      }
+    }
+    throw error
+  }
+}
+
+export async function signUp(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    const name = formData.get('name')
+    const password = formData.get('password')
+    const email = formData.get('email')
+    const dateOfBirth = formData.get('dateOfBirth')
+    const readingPreferences = '{}'
+    const body = {
+      name,
+      email,
+      password,
+      dateOfBirth,
+      readingPreferences
+    }
+    const request = new Request("http://localhost:3001/v1/users", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body)
+    });
+    const response = await fetch(request);
+    if(response.ok) {
+      const user: User = await response.json()
+      await signIn('credentials', formData);
+    }
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

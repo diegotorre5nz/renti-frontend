@@ -22,20 +22,30 @@ export const { auth, signIn, signOut } = NextAuth({
     Credentials({
       async authorize(credentials) {
         const parsedCredentials = z
-          .object({ email: z.string().email(), password: z.string().min(6) })
-          .safeParse(credentials);
- 
-          if (parsedCredentials.success) {
-            const { email, password } = parsedCredentials.data;
-            const user = await getUser(email);
-            if (!user) return null;
-            const passwordsMatch = await bcrypt.compare(password, user.password);
-   
-            if (passwordsMatch) return user;
+        .object({ email: z.string().email(), password: z.string().min(6) })
+        .safeParse(credentials);
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
+          const body = {
+            email,
+            password
           }
-   
-          console.log('Invalid credentials');
-          return null;
+          const request = new Request("http://localhost:3001/v1/sessions/create", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+          });
+          const response = await fetch(request);
+          if(response.ok) {
+            const user: User = await response.json()
+            console.log(user)
+            return user;
+          }
+        }
+        console.log('Invalid credentials');
+        return null;
       },
     }),
   ],
