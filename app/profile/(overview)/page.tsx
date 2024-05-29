@@ -2,13 +2,14 @@ import { Card } from "../../ui/dashboard/cards";
 import LatestInvoices from "../../ui/dashboard/latest-invoices";
 import RevenueChart from "@/app/ui/dashboard/revenue-chart";
 import { lusitana } from "@/app/ui/fonts"
-import { fetchLatestInvoices, fetchCardData, fetchProfileData} from "@/app/lib/data"
+import { fetchLatestInvoices, fetchProfileData} from "@/app/lib/data"
 import { Suspense } from "react";
 import { RevenueChartSkeleton } from "@/app/ui/skeletons";
 
 export default async function Page() {
   const latestInvoices = await fetchLatestInvoices();
-  const {     name,
+  const { 
+    name,
     email,
     dateOfBirth,
    } = await fetchProfileData();
@@ -16,16 +17,13 @@ export default async function Page() {
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2x1`}>
-        Dashboard
+        Profile
       </h1>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-      { <Card title="Colected" value={totalPaidInvoices} type="collected" /> }
-      { <Card title="Pending" value={totalPendingInvoices} type="pending" /> }
-      { <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> }
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-1">
       { <Card
-        title="Total Customers"
-        value={numberOfCustomers}
-        type="customers"
+        name={name}
+        email={email}
+        dateOfBirth={dateOfBirth}
         /> }
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">

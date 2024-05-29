@@ -7,9 +7,11 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  UserWithTokens,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
+import { cookies } from 'next/headers'
 
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.
@@ -83,6 +85,36 @@ export async function fetchCardData() {
       numberOfInvoices,
       totalPaidInvoices,
       totalPendingInvoices,
+    };
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch card data.');
+  }
+}
+
+export async function fetchProfileData() {
+  noStore();
+  try {
+    const cookieStore = cookies()
+    const userString = cookieStore.get('user')
+    if(!userString) throw new Error('Session Expired!'); 
+    const user: UserWithTokens = JSON.parse(userString.value)
+    const accessToken = user.authorization.accessToken;
+    const request = new Request("http://localhost:3001/v1/users/me", {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `jwt ${accessToken}`
+      },
+    });
+    const response = await fetch(request);
+    if(response.ok) {
+      const user: User = { ... await response.json() }
+    }
+    return {
+      name: user.name,
+      email: user.email,
+      dateOfBirth: user.dateOfBirth,
     };
   } catch (error) {
     console.error('Database Error:', error);
