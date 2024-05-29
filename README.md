@@ -1,6 +1,6 @@
 ## Renti Take Home Front End
 
-To run this prject clone the repository to your local folder and follow the steps:
+To run this project clone the repository to your local folder and follow the steps:
 
 1. Create a file .env in the root of this proyect with the keys provided in the email.
 2. npm install
