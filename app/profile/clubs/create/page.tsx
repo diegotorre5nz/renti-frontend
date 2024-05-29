@@ -1,4 +1,4 @@
-import Form from "@/app/ui/invoices/create-form";
+import Form from "@/app/ui/clubs/create-form";
 import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
 import { fetchCustomers } from "@/app/lib/data";
 import { Metadata } from 'next';
@@ -14,10 +14,10 @@ export default async function Page() {
     <main>
       <Breadcrumbs 
         breadcrumbs={[
-          { label: 'invoices', href: '/dashboard/invoices' },
+          { label: 'clubs', href: '/profile/clubs' },
           {
-            label: 'Create invoice',
-            href: 'dashboard/invoices/create',
+            label: 'Create club',
+            href: 'profile/clubs/create',
             active: true,
           },
         ]}

@@ -8,6 +8,7 @@ import {
   User,
   Revenue,
   UserWithTokens,
+  Club,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -56,6 +57,36 @@ export async function fetchLatestInvoices() {
   }
 }
 
+export async function fetchJointClubs() {
+  noStore();
+  try {
+    const cookieStore = cookies()
+    const userString = cookieStore.get('user')
+    if(!userString) throw new Error('Session Expired!'); 
+    const user: UserWithTokens = JSON.parse(userString.value)
+    const accessToken = user.authorization.accessToken;
+    const request = new Request(`${process.env.API_HOST}/v1/jointclubs`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `jwt ${accessToken}`
+      },
+    });
+    const response = await fetch(request);
+    let clubs: Club[] = Array()
+    if(response.ok) {
+      const data: Club[] = await response.json()
+      clubs = data.map((club) => ({
+        ...club,
+      }));
+    }
+    return clubs;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the joint clubs.');
+  }
+}
+
 export async function fetchCardData() {
   noStore();
   try {
@@ -100,7 +131,7 @@ export async function fetchProfileData() {
     if(!userString) throw new Error('Session Expired!'); 
     const user: UserWithTokens = JSON.parse(userString.value)
     const accessToken = user.authorization.accessToken;
-    const request = new Request("http://localhost:3001/v1/users/me", {
+    const request = new Request(`${process.env.API_HOST}/v1/users/me`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -153,6 +184,41 @@ export async function fetchFilteredInvoices(
     `;
 
     return invoices.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices.');
+  }
+}
+
+export async function fetchClubs(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const cookieStore = cookies()
+    const userString = cookieStore.get('user')
+    if(!userString) throw new Error('Session Expired!'); 
+    const user: UserWithTokens = JSON.parse(userString.value)
+    const accessToken = user.authorization.accessToken;
+    const request = new Request(`${process.env.API_HOST}/v1/clubs`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `jwt ${accessToken}`
+      },
+    });
+    const response = await fetch(request);
+    let clubs: Club[] = Array()
+    if(response.ok) {
+      const data: Club[] = await response.json()
+      clubs = data.map((club) => ({
+        ...club,
+      }));
+    }
+    return clubs;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoices.');

@@ -2,22 +2,10 @@ import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteClub } from '@/app/lib/actions';
 
-export function CreateInvoice() {
-  return (
-    <Link
-      href="/profile/clubs/create"
-      className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-    >
-      <span className="hidden md:block">Create Clubs</span>{' '}
-      <PlusIcon className="h-5 md:ml-4" />
-    </Link>
-  );
-}
-
 export function CreateClubs() {
   return (
     <Link
-      href="/dashboard/clubs/create"
+      href="/profile/clubs/create"
       className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       <span className="hidden md:block">Create Club</span>{' '}
@@ -37,7 +25,7 @@ export function UpdateInvoice({ id }: { id: string }) {
   );
 }
 
-export function DeleteInvoice({ id }: { id: string }) {
+export function DeleteClub({ id }: { id: string }) {
   const deleteClubWithId = deleteClub.bind(null, id);
   return (
     <form action={ deleteClubWithId }>
