@@ -6,8 +6,26 @@ export type User = {
   id: string;
   name: string;
   email: string;
+  dateOfBirth: string;
   password: string;
 };
+
+export type UserWithTokens = {
+  id: string;
+  name: string;
+  email: string;
+  dateOfBirth: string;
+  password: string;
+  readingPreferences: string,
+  createdAt: string,
+  updatedAt: string,
+  authorization: {
+    accessToken: string,
+    accessTokenExpiresAt: string,
+    refreshToken: string,
+    refreshTokenExpiresAt: string,
+  }
+ }
 
 export type Customer = {
   id: string;

@@ -165,7 +165,6 @@ export async function signUp(
     });
     const response = await fetch(request);
     if(response.ok) {
-      const user: User = await response.json()
       await signIn('credentials', formData);
     }
   } catch (error) {
