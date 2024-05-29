@@ -1,5 +1,18 @@
-## Next.js App Router Course - Starter
+## Renti Take Home Front End
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+To run this prject clone the repository to your local folder and follow the steps:
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+1. Create a file .env in the root of this proyect with the keys provided in the email.
+2. npm install
+3. npm run build
+4. npm run dev
+
+This project is also available in the cloud:
+
+-Frontend:
+
+https://renti-frontend.vercel.app
+
+-Backend: 
+
+https://renti-take-home-e097cfdc1831.herokuapp.com
