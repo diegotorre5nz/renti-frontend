@@ -32,7 +32,7 @@ export const { auth, signIn, signOut } = NextAuth({
             email,
             password
           }
-          const request = new Request("http://localhost:3001/v1/sessions/create", {
+          const request = new Request(`${process.env.API_HOST}/v1/sessions/create`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
