@@ -33,7 +33,7 @@ export default async function JointClubs({
 
                 <div className="flex items-center">
                   <Image
-                    src={'/customers/emil-kowalski.png'}
+                    src={'/customers/evil-rabbit.png'}
                     alt={`users's profile picture`}
                     className="mr-4 rounded-full"
                     width={32}

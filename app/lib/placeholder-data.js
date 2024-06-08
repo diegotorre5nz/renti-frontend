@@ -56,7 +56,7 @@ const customers = [
     id: '126eed9c-c90c-4ef6-a4a8-fcf7408d3c66',
     name: 'Emil Kowalski',
     email: 'emil@kowalski.com',
-    image_url: '/customers/emil-kowalski.png',
+    image_url: '/customers/evil-rabbit.png',
   },
   {
     id: 'CC27C14A-0ACF-4F4A-A6C9-D45682C144B9',

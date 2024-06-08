@@ -27,7 +27,7 @@ export default async function ClubsTable({
                   <div>
                     <div className="mb-2 flex items-center">
                       <Image
-                        src="/customers/emil-kowalski.png"
+                        src="/customers/evil-rabbit.png"
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
@@ -80,7 +80,7 @@ export default async function ClubsTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
                       <Image
-                        src='/customers/emil-kowalski.png'
+                        src='/customers/evil-rabbit.png'
                         className="rounded-full"
                         width={28}
                         height={28}
