@@ -15,10 +15,10 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* Invoice Amount */}
+        {/* Club Name */}
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">
-            Choose an amount
+            Enter the Name of the Club
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">

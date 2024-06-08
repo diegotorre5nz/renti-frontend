@@ -1,10 +1,7 @@
 import { Card } from "../../ui/dashboard/cards";
 import LatestInvoices from "../../ui/dashboard/joint-clubs";
-import RevenueChart from "@/app/ui/dashboard/revenue-chart";
 import { lusitana } from "@/app/ui/fonts"
 import { fetchJointClubs, fetchProfileData} from "@/app/lib/data"
-import { Suspense } from "react";
-import { RevenueChartSkeleton } from "@/app/ui/skeletons";
 
 export default async function Page() {
   const clubs = await fetchJointClubs();

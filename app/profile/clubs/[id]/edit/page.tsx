@@ -1,6 +1,6 @@
-import Form from '@/app/ui/invoices/edit-form';
+import Form from '@/app/ui/clubs/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchCustomers, fetchInvoiceById } from '@/app/lib/data';
+import { fetchClubById, fetchJointClubs } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
  
@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
-  const [invoice, customers] = await Promise.all([
-    fetchInvoiceById(id),
-    fetchCustomers(),
+  const [club] = await Promise.all([
+    fetchClubById(id),
+    fetchJointClubs(),
   ]);
 
-  if (!invoice) {
+  if (!club) {
     notFound();
   }
 
@@ -23,15 +23,15 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
+          { label: 'Clubs', href: '/profile/clubs' },
           {
-            label: 'Edit Invoice',
-            href: `/dashboard/invoices/${id}/edit`,
+            label: 'Edit Club',
+            href: `/profile/clubs/${id}/edit`,
             active: true,
           },
         ]}
       />
-      <Form invoice={invoice} customers={customers} />
+      <Form club={club} />
     </main>
   );
 }

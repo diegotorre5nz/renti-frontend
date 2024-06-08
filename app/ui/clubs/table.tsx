@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import { UpdateInvoice, DeleteClub } from '@/app/ui/clubs/buttons';
+import { UpdateClub, DeleteClub } from '@/app/ui/clubs/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchClubs } from '@/app/lib/data';
 
 export default async function ClubsTable({
@@ -43,10 +42,10 @@ export default async function ClubsTable({
                   <div>
                     <p>{club.createdAt.toString().substring(0,10)}</p>
                   </div>
-                  <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={club.id} />
-                    <DeleteClub id={club.id} />
-                  </div>
+                    <div className="flex justify-end gap-2">
+                      <UpdateClub id={club.id} hide={club.userIsCreator} />
+                      <DeleteClub id={club.id} hide={!club.userIsCreator} />
+                    </div>
                 </div>
               </div>
             ))}
@@ -99,9 +98,9 @@ export default async function ClubsTable({
                     <InvoiceStatus status={club.isJoint} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={club.id} />
-                      <DeleteClub id={club.id} />
+                    <div className="flex justify-end gap-2">
+                      <UpdateClub id={club.id} hide={!club.userIsCreator} />
+                      <DeleteClub id={club.id} hide={!club.userIsCreator} />
                     </div>
                   </td>
                 </tr>
