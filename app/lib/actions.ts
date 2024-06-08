@@ -1,7 +1,6 @@
 'use server';
 
 import { z } from 'zod';
-import { sql } from '@vercel/postgres'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
@@ -62,14 +61,14 @@ export async function createClub(prevState: State, formData: FormData) {
       body: JSON.stringify(body)
     });
     const response = await fetch(request);
-    let club: Club | undefined = undefined;
-    if(response.ok) {
-      const club: Club = await response.json()
+    let club: Club | null = null;
+    if(!response.ok) {
+      throw new Error("API Error: Failed to Create Club.");       
     }
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
-      message: 'Database Error: Failed to Create Club.',
+      message: 'API Error: Failed to Create Club.',
     };
   }
  
@@ -78,33 +77,56 @@ export async function createClub(prevState: State, formData: FormData) {
   redirect('/profile/clubs');
 }
 
-export async function updateInvoice(
+export async function updateClub(
   id: string,
   prevState: State,
   formData: FormData,
 ) {
   const validatedFields = UpdateClub.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
+    name: formData.get('name'),
   });
  
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Invoice.',
+      message: 'Missing Fields. Failed to Update Club.',
     };
   }
  
   const { name } = validatedFields.data;
  
   try {
+    const cookieStore = cookies()
+    const userString = cookieStore.get('user')
+    if(!userString) throw new Error('Session Expired!'); 
+    const user: UserWithTokens = JSON.parse(userString.value)
+    const userId = user.id;
+    const accessToken = user.authorization.accessToken;
+
+    const body = {
+      name
+    }
+    
+    const request = new Request(`${process.env.API_HOST}/v1/users/${userId}/clubs/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `jwt ${accessToken}`
+      },
+      body: JSON.stringify(body)
+    });
+    const response = await fetch(request);
+    let club: Club | null = null;
+    if(!response.ok) {
+       throw new Error("API Error: Failed to Update Club.");       
+    }
   } catch (error) {
-    return { message: 'Database Error: Failed to Update Invoice.' };
+    return { message: 'API Error: Failed to Update Club.' };
   }
- 
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
+
+  // Revalidate the cache for the invoices page and redirect the user.
+  revalidatePath('/profile/clubs');
+  redirect('/profile/clubs');
 }
 
 export async function deleteClub(id: string) {
@@ -130,7 +152,7 @@ export async function deleteClub(id: string) {
     }
   }
   
-  revalidatePath('/dashboard/invoices');
+  revalidatePath('/profile/clubs');
 }
 
 export async function authenticate(

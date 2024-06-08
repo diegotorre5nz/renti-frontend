@@ -60,8 +60,10 @@ export type LatestInvoice = {
 export type Club = {
   id: string;
   name: string;
+  userId: string | undefined;
   creatorName: string | undefined;
   isJoint: boolean | undefined;
+  userIsCreator: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -107,9 +109,3 @@ export type CustomerField = {
   name: string;
 };
 
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
-};

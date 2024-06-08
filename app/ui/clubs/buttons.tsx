@@ -14,18 +14,20 @@ export function CreateClubs() {
   );
 }
 
-export function UpdateInvoice({ id }: { id: string }) {
+export function UpdateClub({ id, hide }: { id: string, hide: boolean | undefined }) {
+  if(hide) return null;
   return (
     <Link
-      href={`/dashboard/invoices/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
-    >
-      <PencilIcon className="w-5" />
-    </Link>
+    href={`/profile/clubs/${id}/edit`}
+    className="rounded-md border p-2 hover:bg-gray-100"
+  >
+    <PencilIcon className="w-5" />
+  </Link>
   );
 }
 
-export function DeleteClub({ id }: { id: string }) {
+export function DeleteClub({ id, hide }: { id: string, hide: boolean | undefined }) {
+  if(hide) return null;
   const deleteClubWithId = deleteClub.bind(null, id);
   return (
     <form action={ deleteClubWithId }>
