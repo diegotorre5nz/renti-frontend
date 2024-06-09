@@ -100,7 +100,7 @@ export async function fetchClubs(
     return clubs;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoices.');
+    throw new Error('Failed to fetch clubs.');
   }
 }
 

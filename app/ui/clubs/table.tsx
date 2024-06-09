@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { UpdateClub, DeleteClub } from '@/app/ui/clubs/buttons';
-import InvoiceStatus from '@/app/ui/invoices/status';
+import ClubStatus from '@/app/ui/clubs/status';
 import { fetchClubs } from '@/app/lib/data';
 
 export default async function ClubsTable({
@@ -26,7 +26,7 @@ export default async function ClubsTable({
                   <div>
                     <div className="mb-2 flex items-center">
                       <Image
-                        src="/customers/evil-rabbit.png"
+                        src="/customers/jared-palmer.png"
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
@@ -36,7 +36,7 @@ export default async function ClubsTable({
                     </div>
                     <p className="text-sm text-gray-500">{club.creatorName}</p>
                   </div>
-                  <InvoiceStatus status={club.isJoint} />
+                  <ClubStatus status={club.isJoint} />
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
@@ -79,7 +79,7 @@ export default async function ClubsTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
                       <Image
-                        src='/customers/evil-rabbit.png'
+                        src='/customers/jared-palmer.png'
                         className="rounded-full"
                         width={28}
                         height={28}
@@ -95,7 +95,7 @@ export default async function ClubsTable({
                     {club.createdAt.toString().substring(0,10)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <InvoiceStatus status={club.isJoint} />
+                    <ClubStatus status={club.isJoint} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-2">

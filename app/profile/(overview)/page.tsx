@@ -1,5 +1,5 @@
-import { Card } from "../../ui/dashboard/cards";
-import LatestInvoices from "../../ui/dashboard/joint-clubs";
+import { Card } from "../../ui/profile/cards";
+import JointClubs from "../../ui/profile/joint-clubs";
 import { lusitana } from "@/app/ui/fonts"
 import { fetchJointClubs, fetchProfileData} from "@/app/lib/data"
 
@@ -24,7 +24,7 @@ export default async function Page() {
         /> }
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-1">        
-        { <LatestInvoices clubs={clubs} /> }
+        { <JointClubs clubs={clubs} /> }
       </div>
     </main>
   )

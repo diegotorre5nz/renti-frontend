@@ -1,7 +1,7 @@
-import Pagination from '@/app/ui/invoices/pagination';
+import Pagination from '@/app/ui/clubs/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/clubs/table';
-import { CreateInvoice } from '@/app/ui/invoices/buttons';
+import { CreateClubs } from '@/app/ui/clubs/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -30,7 +30,7 @@ export default async function Page({
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search invoices..." />
-        <CreateInvoice />
+        <CreateClubs />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <Table query={query} currentPage={currentPage} />
