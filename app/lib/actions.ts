@@ -72,7 +72,7 @@ export async function createClub(prevState: State, formData: FormData) {
     };
   }
  
-  // Revalidate the cache for the invoices page and redirect the user.
+  // Revalidate the cache for the clubs page and redirect the user.
   revalidatePath('/profile/clubs');
   redirect('/profile/clubs');
 }
@@ -124,7 +124,7 @@ export async function updateClub(
     return { message: 'API Error: Failed to Update Club.' };
   }
 
-  // Revalidate the cache for the invoices page and redirect the user.
+  // Revalidate the cache for the clubs page and redirect the user.
   revalidatePath('/profile/clubs');
   redirect('/profile/clubs');
 }

@@ -1,5 +1,5 @@
 import Form from '@/app/ui/clubs/edit-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import Breadcrumbs from '@/app/ui/clubs/breadcrumbs';
 import { fetchClubById, fetchJointClubs } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';

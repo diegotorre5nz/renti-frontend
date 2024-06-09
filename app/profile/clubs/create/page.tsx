@@ -1,5 +1,5 @@
 import Form from "@/app/ui/clubs/create-form";
-import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
+import Breadcrumbs from "@/app/ui/clubs/breadcrumbs";
 import { fetchClubs } from "@/app/lib/data";
 import { Metadata } from 'next';
  
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const customers = await fetchClubs('',3);
+  const clubs = await fetchClubs('',3);
 
   return (
     <main>
@@ -22,7 +22,7 @@ export default async function Page() {
           },
         ]}
       />
-    <Form customers={customers} />
+    <Form clubs={clubs} />
     </main>
   );
 }
