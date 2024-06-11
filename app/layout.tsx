@@ -4,10 +4,10 @@ import { Metadata } from 'next';
  
 export const metadata: Metadata = {
   title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
+    template: '%s | Acme Book Club Management System',
+    default: 'Acme Book Club Management System',
   },
-  description: 'Dashboard Acme',
+  description: 'This is the Acme Book Club Management System where users can join book clubs, participate in discussions, and manage their reading lists.',
   metadataBase: new URL('https://acme.com/'),
 };
 

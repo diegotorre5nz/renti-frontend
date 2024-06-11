@@ -83,7 +83,7 @@ export default async function ClubsTable({
                         className="rounded-full"
                         width={28}
                         height={28}
-                        alt={`users's profile picture`}
+                        alt={`user's profile picture`}
                       />
                       <p>{club.name}</p>
                     </div>
