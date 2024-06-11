@@ -2,9 +2,10 @@ import { Card } from "../../ui/profile/cards";
 import JointClubs from "../../ui/profile/joint-clubs";
 import { lusitana } from "@/app/ui/fonts"
 import { fetchJointClubs, fetchProfileData} from "@/app/lib/data"
+import { Suspense } from "react";
+import { JointClubsChartSkeleton } from "@/app/ui/skeletons";
 
 export default async function Page() {
-  const clubs = await fetchJointClubs();
   const { 
     name,
     email,
@@ -24,7 +25,11 @@ export default async function Page() {
         /> }
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-1">        
-        { <JointClubs clubs={clubs} /> }
+        
+        
+        <Suspense fallback={<JointClubsChartSkeleton/>}>
+          <JointClubs/> 
+          </Suspense>
       </div>
     </main>
   )

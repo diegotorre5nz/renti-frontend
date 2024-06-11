@@ -29,6 +29,7 @@ export async function fetchJointClubs() {
         ...club,
       }));
     }
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     return clubs;
   } catch (error) {
     console.error('Database Error:', error);
